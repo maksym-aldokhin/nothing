@@ -1,0 +1,59 @@
+name: releases
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ilammy/msvc-dev-cmd@v1.4.1
+      with:
+          arch: amd64
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+          version: '6.5.2'
+          host: 'windows'
+          target: 'desktop'
+          arch: 'win64_msvc2019_64'
+          dir: '${{github.workspace}}/qt/'
+          install-deps: 'true'
+
+    - name: Configure CMake
+      run: cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="${{env.Qt6_Dir}}/lib/cmake/" -DQt6_DIR=${{env.Qt6_Dir}}/lib/cmake/Qt6/ -GNinja -DCMAKE_MAKE_PROGRAM=ninja -B '${{github.workspace}}/../build'
+      working-directory: Application
+
+    - name: Build
+      run: cmake --build '${{github.workspace}}/../build' --target all
+      working-directory: Application
+
+    - name: WinDeployQt
+      run: windeployqt --compiler-runtime --no-svg --no-opengl-sw --release --qmldir Application "${{github.workspace}}/build/out/Nothing.exe"
+
+    - name: Package project 
+      run: |
+          find "${{github.workspace}}/build/out" -name "*.dll" -o -name "*.exe" | xargs zip -j "Nothing.zip"
+
+    - name: Create Releases
+      uses: actions/create-release@v1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+          draft: false
+          prerelease: false
+    
+    - name: Upload compressed artifacts
+      uses: actions/upload-artifact@v2
+      with:
+          name: "Nothing"
+          path: "Nothing.zip"
+     
