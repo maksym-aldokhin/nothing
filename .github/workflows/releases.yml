@@ -37,7 +37,7 @@ jobs:
 
     - name: Package project 
       run: |
-          find "${{github.workspace}}/build/out" -name "*.dll" -o -name "*.exe" | xargs zip -j "Nothing.zip"
+          find "${{github.workspace}}/build/out/." -name "*.dll" -o -name "*.exe" | xargs zip -j "Nothing.zip"
 
     - name: Create Releases
       uses: actions/create-release@v1
