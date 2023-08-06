@@ -40,6 +40,7 @@ jobs:
       run: cmake --build '${{github.workspace}}/build' --target create_release_zip
 
     - name: Create Releases
+      id: create_release
       uses: actions/create-release@v1
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -56,5 +57,5 @@ jobs:
       with:
           upload_url: ${{steps.create_release.outputs.upload_url}}
           asset_path: "${{github.workspace}}/build/Nothing.zip"
-          asset_name: Nothing.windows-amd64.zip
-          asset_content_type: "${{github.workspace}}/build/Nothing.zip"
+          asset_name: Nothing.zip
+          asset_content_type: "${{github.workspace}}/build"
