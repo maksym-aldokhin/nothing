@@ -26,9 +26,6 @@ jobs:
         arch: 'win64_msvc2019_64'
         dir: '${{github.workspace}}/qt/'
         install-deps: 'true'
-        
-    - name: List files in Qt
-      run: find ${{env.Qt6_Dir}}
 
     - name: Configure CMake
       run: cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="${{env.Qt6_Dir}}/lib/cmake/" -DQt6_DIR=${{env.Qt6_Dir}}/lib/cmake/Qt6/ -GNinja -DCMAKE_MAKE_PROGRAM=ninja -B '${{github.workspace}}'/build
