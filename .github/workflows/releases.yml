@@ -35,9 +35,8 @@ jobs:
     - name: WinDeployQt
       run: windeployqt --compiler-runtime --no-svg --no-opengl-sw --release --qmldir Application "${{github.workspace}}/build/out/Nothing.exe"
 
-    - name: Package project 
-      run: |
-          find "${{github.workspace}}/build/out/." -name "*.dll" -o -name "*.exe" | xargs zip -j "Nothing.zip"
+    - name: Create archive
+      run: cmake --build '${{github.workspace}}/build' --target create_release_zip
 
     - name: Create Releases
       uses: actions/create-release@v1
@@ -55,5 +54,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
           name: "Nothing"
-          path: "Nothing.zip"
+          path: "${{github.workspace}}/build/Nothing.zip"
      
