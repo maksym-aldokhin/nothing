@@ -25,11 +25,11 @@ jobs:
           install-deps: 'true'
 
     - name: Configure CMake
-      run: cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="${{env.Qt6_Dir}}/lib/cmake/" -DQt6_DIR=${{env.Qt6_Dir}}/lib/cmake/Qt6/ -GNinja -DCMAKE_MAKE_PROGRAM=ninja -B '${{github.workspace}}/../build'
+      run: cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="${{env.Qt6_Dir}}/lib/cmake/" -DQt6_DIR=${{env.Qt6_Dir}}/lib/cmake/Qt6/ -GNinja -DCMAKE_MAKE_PROGRAM=ninja -B '${{github.workspace}}/build'
       working-directory: Application
 
     - name: Build
-      run: cmake --build '${{github.workspace}}/../build' --target all
+      run: cmake --build '${{github.workspace}}/build' --target all
       working-directory: Application
 
     - name: WinDeployQt
