@@ -50,10 +50,11 @@ jobs:
             Changes in this Release
           draft: false
           prerelease: false
-    
+
     - name: Upload compressed artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-release-asset@v1
       with:
-          name: "Nothing"
-          path: "${{github.workspace}}/build/Nothing.zip"
-     
+          upload_url: ${{steps.create_release.outputs.upload_url}}
+          asset_path: "${{github.workspace}}/build/Nothing.zip"
+          asset_name: Nothing.windows-amd64.zip
+          asset_content_type: "${{github.workspace}}/build/Nothing.zip"
