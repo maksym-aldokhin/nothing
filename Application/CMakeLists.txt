@@ -11,13 +11,15 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/out)
+
 find_package(Qt${QT_VERSION_MAJOR} QUIET REQUIRED
 	COMPONENTS
-	        Core
+		Core
 		Gui
 		Qml
 		Quick
 		Widgets
 )
 
-add_subdirectory(src/app)
+add_subdirectory(src)
