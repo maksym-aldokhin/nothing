@@ -23,3 +23,8 @@ find_package(Qt${QT_VERSION_MAJOR} QUIET REQUIRED
 )
 
 add_subdirectory(src)
+
+add_custom_target(create_release_zip
+	COMMAND python ../.github/util/collect.py -t "*.dll" "*.exe" "qmldir" "plugins.qmltypes" -s "${EXECUTABLE_OUTPUT_PATH}" -d "${CMAKE_BINARY_DIR}/Nothing"
+	COMMAND ${CMAKE_COMMAND} -E tar "cfv" "Nothing.zip" --format=zip "${CMAKE_BINARY_DIR}/Nothing"
+)
