@@ -1,0 +1,7 @@
+#pragma once
+
+namespace version::prv {
+
+constexpr auto version {"${VERSION}"};
+
+}

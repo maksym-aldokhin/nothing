@@ -6,4 +6,8 @@ ApplicationWindow {
 	width: 400
 	height: 300
 	title: "Nothing"
+
+	Editor {
+		anchors.fill: parent
+	}
 }

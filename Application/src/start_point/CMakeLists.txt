@@ -6,6 +6,7 @@ set(headers
 )
 
 set(qml
+	qml/Editor.qml
 	qml/main.qml
 )
 
@@ -26,4 +27,7 @@ qt_add_qml_module(Nothing
 target_link_libraries(Nothing PRIVATE
 	Qt${QT_VERSION_MAJOR}::Core
 	Qt${QT_VERSION_MAJOR}::Gui
-	Qt${QT_VERSION_MAJOR}::Quick)
+	Qt${QT_VERSION_MAJOR}::Quick
+	Version
+	Consts
+)
