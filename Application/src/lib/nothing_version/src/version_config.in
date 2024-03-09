@@ -1,0 +1,9 @@
+#pragma once
+
+#include <string>
+
+namespace nothing_version::prv {
+
+const std::string version {"${VERSION}"};
+
+}

@@ -3,10 +3,11 @@
 #include <QQmlEngine>
 
 #include <Consts/Consts.h>
-#include <Version/Version.h>
+#include <NothingVersion/NothingVersion.h>
 
-int main(int argc, char *argv[]) {
-	QCoreApplication::setApplicationVersion(version::version);
+int main(int argc, char *argv[])
+{
+	QCoreApplication::setApplicationVersion(nothing_version::version.c_str());
 	QCoreApplication::setApplicationName(consts::appName);
 	QCoreApplication::setOrganizationName(consts::orgName);
 	QCoreApplication::setOrganizationDomain(consts::orgDomain);
@@ -14,7 +15,7 @@ int main(int argc, char *argv[]) {
 	QGuiApplication a(argc, argv);
 
 	QQmlEngine engine;
-	QQmlComponent component(&engine, ":/core/main.qml");
+	QQmlComponent component(&engine, ":/qml/main.qml");
 	QObject *object = component.create();
 
 	return a.exec();
